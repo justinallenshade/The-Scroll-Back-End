@@ -5,6 +5,7 @@ const postCont = require('./controller/post-controller')
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
+const cors = require('cors')
 app.use(cors())
 
 // routers
