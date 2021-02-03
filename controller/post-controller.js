@@ -1,10 +1,11 @@
 const express = require("express");
-const app = express.Router();
-const postRouter = "../models/blog-post.js";
+const router = express.Router();
+const postRouter = require("../models/blog-post");
 
 //list all posts
-app.get("/", (req, res) => {
-  postRouter.find({}).then((post) => res.json(post));
+router.get("/", (req, res) => {
+  postRouter.find({})
+      .then((post) => res.json(post));
 });
 
-module.exports = postRouter;
+module.exports = router;
