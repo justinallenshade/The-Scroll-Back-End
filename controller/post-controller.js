@@ -3,7 +3,7 @@ const app = express.Router();
 const postRouter = "../models/blog-post.js";
 
 //list all posts
-app.get("/post", (req, res) => {
+app.get("/", (req, res) => {
   postRouter.find({}).then((post) => res.json(post));
 });
 
