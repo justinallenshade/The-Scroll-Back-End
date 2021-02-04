@@ -13,35 +13,24 @@ router.get("/:id", (req, res) => {
   postRouter.findOne({ _id: id }).then((x) => res.json(x));
 });
 
-//create a new post
-// router.post("/", (req, res, next) => {
-//   console.log("in post");
-//   console.log(req.body);
-//   postRouter
-//     .create(req.body)
-//     .then((x) => res.json(x))
-//     .catch(next);
-// });
+// create a new post
+router.post("/", (req, res, next) => {
+ 
+  postRouter.create(req.body)
+    .then((router) => res.json(router))
+    .catch(next);
+});
 
-//update a single post
-// router.put("/:id", (req, res) => {
-//   console.log("you are in update route");
-//   const id = req.params.id;
-//   const updateVals = req.body;
-//   postRouter
-//     .findOneAndUpdate({ _id: id }, updateVals)
-//     .then((postRouter) => res.json(postRouter));
-// });
+// update a single post
+router.put("/:id", (req, res) => {
+  postRouter
+    .findOneAndUpdate(
+      { _id: req.params.id }, 
+      req.body)
+    .then(postRouter.find({})
+    .then(router => res.json(router)))
+});
 
-//update a single post
-// router.put("/:id", (req, res) => {
-//   let id = req.params.id;
-//   let updateVal = req.body;
-
-//   postRouter
-//     .findOneAndUpdate({ _id: id }, updateVal)
-//     .then(postRouter.find({}).then((x) => res.json(x)));
-// });
 
 // delete a person by id
 router.delete("/:id", (req, res) => {
