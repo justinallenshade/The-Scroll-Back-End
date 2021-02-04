@@ -3,18 +3,13 @@ const app = express();
 const postController = require("./controller/post-controller");
 const cors = require("cors");
 app.use(cors());
-const router = express.Router();
-
-const cors = require("cors");
-app.use(cors());
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routers
-router.use("/post", postController);
-
+app.use("/post", postController);
 
 // launching
 app.set("port", process.env.PORT || 3000);
