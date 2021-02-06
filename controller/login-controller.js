@@ -9,8 +9,8 @@ router.get("/", (req, res) => {
 
 // list a post by id
 router.get("/:username", (req, res) => {
-  const id = req.params.id;
-  loginRouter.findOne({ _id: id }).then((x) => res.json(x));
+  const username = req.params.username;
+  loginRouter.findOne({ username: username }).then((x) => res.json(x));
 });
 
 // create a new post
