@@ -9,8 +9,9 @@ router.get("/", (req, res) => {
 
 // list a post by id
 router.get("/:username", (req, res) => {
-  const username = req.params.username;
-  loginRouter.findOne({ username: username }).then((x) => res.json(x));
+    console.log(req.query.pass)
+    const username = req.params.username;
+    loginRouter.findOne({ username: username }).then((x) => res.json(x));
 });
 
 // create a new post
