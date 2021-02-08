@@ -15,8 +15,8 @@ router.get("/:id", (req, res) => {
 
 // create a new post
 router.post("/", (req, res, next) => {
- 
-  postRouter.create(req.body)
+  postRouter
+    .create(req.body)
     .then((router) => res.json(router))
     .catch(next);
 });
@@ -24,13 +24,9 @@ router.post("/", (req, res, next) => {
 // update a single post
 router.put("/:id", (req, res) => {
   postRouter
-    .findOneAndUpdate(
-      { _id: req.params.id }, 
-      req.body)
-    .then(postRouter.find({})
-    .then(router => res.json(router)))
+    .findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then(postRouter.find({}).then((router) => res.json(router)));
 });
-
 
 // delete a person by id
 router.delete("/:id", (req, res) => {
