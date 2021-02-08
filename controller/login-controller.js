@@ -1,4 +1,5 @@
 const express = require("express");
+const { createIndexes } = require("../models/login-data");
 const router = express.Router();
 const loginRouter = require("../models/login-data");
 
@@ -9,17 +10,38 @@ router.get("/", (req, res) => {
 
 // list a post by id
 router.get("/:username", (req, res) => {
-    console.log(req.query.pass)
     const username = req.params.username;
-    loginRouter.findOne({ username: username }).then((x) => res.json(x));
-});
+    const password = req.query.pass
+
+    loginRouter.findOne({ username: username })
+    .then((x) => {
+    if(x.password === password){res.json(x)}
+    else{res.send("wrong password")}});
+  
+  });
 
 // create a new post
 router.post("/", (req, res, next) => {
- 
-    loginRouter.create(req.body)
-    .then((router) => res.json(router))
-    .catch(next);
+    const username = req.body[0].username
+    const email = req.body[0].email
+    
+    loginRouter.find({ username: username })
+    .then((x) => {
+      if(x[0] === undefined){
+        loginRouter.find({ email: email })
+        .then((y) => {
+          if(y[0] === undefined){
+            loginRouter.create(req.body)
+            .then((router) => res.json(router))
+            .catch(next);
+          }
+          else{res.send("email was taken")}
+        })
+      }
+      else{res.send("username was taken")}
+    
+    })
+    
 });
 
 router.delete("/:username", (req, res) => {
