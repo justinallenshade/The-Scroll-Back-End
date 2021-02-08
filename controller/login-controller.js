@@ -3,21 +3,19 @@ const { createIndexes } = require("../models/login-data");
 const router = express.Router();
 const loginRouter = require("../models/login-data");
 
-//list all posts
+
+// list a post by body
 router.get("/", (req, res) => {
-    loginRouter.find({}).then((post) => res.json(post));
-});
+    const username = req.body[0].username;
+    const password = req.body[0].password;
 
-// list a post by id
-router.get("/:username", (req, res) => {
-    const username = req.params.username;
-    const password = req.query.pass
-
-    loginRouter.findOne({ username: username })
+    loginRouter.find({ username: username })
     .then((x) => {
-    if(x.password === password){res.json(x)}
-    else{res.send("wrong password")}});
-  
+    if(x[0] !== undefined){
+      if(x[0].password === password){res.json(x)}
+      else{res.send("wrong password")}
+    }
+    else{res.send("username does not exist")}})
   });
 
 // create a new post
