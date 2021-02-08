@@ -1,5 +1,4 @@
 const express = require("express");
-const { createIndexes } = require("../models/login-data");
 const router = express.Router();
 const loginRouter = require("../models/login-data");
 
@@ -11,8 +10,8 @@ router.get("/", (req, res) => {
 
     loginRouter.find({ username: username })
     .then((x) => {
-    if(x[0] !== undefined){
-      if(x[0].password === password){res.json(x)}
+    if(x !== undefined){
+      if(x.password === password){res.json(x)}
       else{res.send("wrong password")}
     }
     else{res.send("username does not exist")}})
@@ -22,6 +21,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res, next) => {
     const username = req.body.username
     const email = req.body.email
+    console.log(req)
     
     loginRouter.find({ username: username })
     .then((x) => {
