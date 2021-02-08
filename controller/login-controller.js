@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res, next) => {
     const username = req.body.username
     const email = req.body.email
-    console.log(req)
+    
     
     loginRouter.find({ username: username })
     .then((x) => {
@@ -33,7 +33,7 @@ router.post("/", (req, res, next) => {
             .then((router) => res.json(router))
             .catch(next);
           }
-          else{res.send("email was taken")}
+          else{res.send(`email was taken ${req}`)}
         })
       }
       else{res.send("username was taken")}
