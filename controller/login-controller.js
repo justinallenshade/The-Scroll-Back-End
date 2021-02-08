@@ -20,15 +20,15 @@ router.get("/", (req, res) => {
 
 // create a new post
 router.post("/", (req, res, next) => {
-    const username = req.body[0].username
-    const email = req.body[0].email
+    const username = req.body.username
+    const email = req.body.email
     
     loginRouter.find({ username: username })
     .then((x) => {
-      if(x[0] === undefined){
+      if(x === undefined){
         loginRouter.find({ email: email })
         .then((y) => {
-          if(y[0] === undefined){
+          if(y === undefined){
             loginRouter.create(req.body)
             .then((router) => res.json(router))
             .catch(next);
