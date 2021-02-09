@@ -58,9 +58,7 @@ router.post("/", async (req, res, next) => {
     //   }
       // else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
     
-    })
-    
-});
+    });
 
 router.delete("/:username", (req, res) => {
     const username = req.params.username;
