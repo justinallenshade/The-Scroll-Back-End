@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
       else{
         if(user.password === req.body.password){
           res.json({
-            data: user,
+            data: user.username,
             message: `welcome back ${user.username}` 
           })
         }
