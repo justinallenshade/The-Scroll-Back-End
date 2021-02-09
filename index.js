@@ -7,18 +7,6 @@ const cors = require("cors");
 
 app.use(cors())
 
-// var whitelist = ['https://the-scroll-back-end.herokuapp.com/', 'http://localhost:3000/']
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (whitelist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false } // disable CORS for this request
-//   }
-//   callback(null, corsOptions) // callback expects two parameters: error and options
-// }
- 
-// app.use(cors(whitelist, corsOptionsDelegate));
 
 // middleware
 app.use(express.json());
