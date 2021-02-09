@@ -18,26 +18,45 @@ router.get("/", (req, res) => {
   });
 
 // create a new post
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
     const username = req.body.username
     const email = req.body.email
    
+    const user = await loginRouter.findOne({ username : username})
     
-    
-    loginRouter.find({ username: username })
-    .then((x) => {
-      if(x === undefined){
-        loginRouter.find({ email: email })
-        .then((y) => {
-          if(y === undefined){
-            loginRouter.create(req.body)
-            .then((router) => res.json(router))
-            .catch(next);
-          }
-          else{res.send(`email was taken ${req}`)}
+    if( !user ){
+      res.status(500).json({
+        message: "username or password not valid"
+      })
+    }
+    else{
+      if(user.password === req.body.password){
+        res.json({
+          data: user,
+          message: `welcome back ${user.username}` 
         })
       }
-      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
+      else{
+        res.status(500).json({
+          message: 'username or password is incorect'
+        })
+      }
+    }
+    
+    // loginRouter.find({ username: username })
+    // .then((x) => {
+    //   if(x === undefined){
+    //     loginRouter.find({ email: email })
+    //     .then((y) => {
+    //       if(y === undefined){
+    //         loginRouter.create(req.body)
+    //         .then((router) => res.json(router))
+    //         .catch(next);
+    //       }
+    //       else{res.send(`email was taken ${req}`)}
+    //     })
+    //   }
+      // else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
     
     })
     
