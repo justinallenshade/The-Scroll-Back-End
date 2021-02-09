@@ -6,11 +6,9 @@ const loginRouter = require("../models/login-data");
 // login data 
 router.post("/", async (req, res) => {
   const username = req.body.username
-
  
   const user = await loginRouter.findOne({ username : username})
  
-  
   if( !user ){
     res.status(500).json({
       message: "username not valid"
@@ -40,32 +38,22 @@ router.post("/create", async (req, res) => {
     const user = await loginRouter.findOne({ username : username})
     const mail = await loginRouter.findOne({ email: email})
     
-    if( !user ){
+    if( user ){
       res.status(500).json({
         message: "username not valid"
       })
     }
     else{
-      if( !mail ){
+      if( mail ){
         res.status(500).json({
           message: "email not valid"
         })
       }
       else{
-        if(user.password === req.body.password){
-          res.json({
-            data: user,
-            message: `welcome back ${user.username}` 
-          })
-        }
-        else{
-          res.status(500).json({
-            message: 'password is incorect'
-        })
+        loginRouter.create(req.body)
+        .then((login) => res.json(login))
       }
-    }
-  }
-});
+}});
 
 router.delete("/:username", (req, res) => {
     const username = req.params.username;
