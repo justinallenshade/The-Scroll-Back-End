@@ -2,8 +2,11 @@ const express = require("express");
 const app = express();
 const postController = require("./controller/post-controller");
 const loginController = require('./controller/login-controller')
+
 const cors = require("cors");
-app.use(cors());
+
+app.use(cors())
+
 
 // middleware
 app.use(express.json());
