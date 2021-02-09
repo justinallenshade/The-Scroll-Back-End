@@ -4,9 +4,9 @@ const loginRouter = require("../models/login-data");
 
 
 // list a post by body
-router.get("/", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+router.get("/:username&:password", (req, res) => {
+    const username = req.params.username;
+    const password = req.params.password;
 
     loginRouter.find({ username: username })
     .then((x) => {
