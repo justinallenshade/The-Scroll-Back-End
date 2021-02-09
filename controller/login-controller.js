@@ -56,7 +56,7 @@ router.post("/", async (req, res, next) => {
           else{res.send(`email was taken ${req}`)}
         })
       }
-      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
+      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}})
     
     });
 
