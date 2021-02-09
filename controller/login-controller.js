@@ -37,7 +37,7 @@ router.post("/", (req, res, next) => {
           else{res.send(`email was taken ${req}`)}
         })
       }
-      else{res.send(`username was taken ${req}`), console.log(req)}
+      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
     
     })
     
