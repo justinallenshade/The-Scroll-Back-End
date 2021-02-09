@@ -5,8 +5,8 @@ const loginRouter = require("../models/login-data");
 
 // list a post by body
 router.get("/", (req, res) => {
-    const username = req.body[0].username;
-    const password = req.body[0].password;
+    const username = req.body.username;
+    const password = req.body.password;
 
     loginRouter.find({ username: username })
     .then((x) => {
@@ -22,41 +22,41 @@ router.post("/", async (req, res, next) => {
     const username = req.body.username
     const email = req.body.email
    
-    const user = await loginRouter.findOne({ username : username})
+    // const user = await loginRouter.findOne({ username : username})
     
-    if( !user ){
-      res.status(500).json({
-        message: "username or password not valid"
-      })
-    }
-    else{
-      if(user.password === req.body.password){
-        res.json({
-          data: user,
-          message: `welcome back ${user.username}` 
-        })
-      }
-      else{
-        res.status(500).json({
-          message: 'username or password is incorect'
-        })
-      }
-    }
-    
-    // loginRouter.find({ username: username })
-    // .then((x) => {
-    //   if(x === undefined){
-    //     loginRouter.find({ email: email })
-    //     .then((y) => {
-    //       if(y === undefined){
-    //         loginRouter.create(req.body)
-    //         .then((router) => res.json(router))
-    //         .catch(next);
-    //       }
-    //       else{res.send(`email was taken ${req}`)}
+    // if( !user ){
+    //   res.status(500).json({
+    //     message: "username or password not valid"
+    //   })
+    // }
+    // else{
+    //   if(user.password === req.body.password){
+    //     res.json({
+    //       data: user,
+    //       message: `welcome back ${user.username}` 
     //     })
     //   }
-      // else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
+    //   else{
+    //     res.status(500).json({
+    //       message: 'username or password is incorect'
+    //     })
+    //   }
+    // }
+    
+    loginRouter.find({ username: username })
+    .then((x) => {
+      if(x === undefined){
+        loginRouter.find({ email: email })
+        .then((y) => {
+          if(y === undefined){
+            loginRouter.create(req.body)
+            .then((router) => res.json(router))
+            .catch(next);
+          }
+          else{res.send(`email was taken ${req}`)}
+        })
+      }
+      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}
     
     });
 
