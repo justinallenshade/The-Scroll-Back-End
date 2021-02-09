@@ -5,14 +5,14 @@ const loginRouter = require("../models/login-data");
 
 // list a post by body
 router.get("/", (req, res) => {
-    const username = req[0].params.username;
-    const password = req[0].params.password;
+    const username = req.params.username;
+    const password = req.params.password;
 
     loginRouter.find({ username: username })
     .then((x) => {
     if(x !== undefined){
       if(x.password === password){res.json(x)}
-      else{console.log(req.params), res.send("wrong password")}
+      else{res.send("wrong password")}
     }
     else{res.send("username does not exist")}})
   });
