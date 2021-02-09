@@ -27,20 +27,27 @@ router.post("/", async (req, res, next) => {
     
     if( !user ){
       res.status(500).json({
-        message: "username or password not valid"
+        message: "username not valid"
       })
     }
     else{
-      if(user.password === req.body.password){
-        res.json({
-          data: user,
-          message: `welcome back ${user.username}` 
+      if( !mail ){
+        res.status(500).json({
+          message: "email not valid"
         })
       }
       else{
-        res.status(500).json({
-          message: 'username or password is incorect'
-        })
+        if(user.password === req.body.password){
+          res.json({
+            data: user,
+            message: `welcome back ${user.username}` 
+          })
+        }
+        else{
+          res.status(500).json({
+            message: 'username or password is incorect'
+          })
+        }
       }
     }
     
