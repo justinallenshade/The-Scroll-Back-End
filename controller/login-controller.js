@@ -1,46 +1,59 @@
 const express = require("express");
-const { createIndexes } = require("../models/login-data");
 const router = express.Router();
 const loginRouter = require("../models/login-data");
 
 
-// list a post by body
-router.get("/", (req, res) => {
-    const username = req.body[0].username;
-    const password = req.body[0].password;
-
-    loginRouter.find({ username: username })
-    .then((x) => {
-    if(x[0] !== undefined){
-      if(x[0].password === password){res.json(x)}
-      else{res.send("wrong password")}
-    }
-    else{res.send("username does not exist")}})
-  });
-
-// create a new post
-router.post("/", (req, res, next) => {
-    const username = req.body[0].username
-    const email = req.body[0].email
-    
-    loginRouter.find({ username: username })
-    .then((x) => {
-      if(x[0] === undefined){
-        loginRouter.find({ email: email })
-        .then((y) => {
-          if(y[0] === undefined){
-            loginRouter.create(req.body)
-            .then((router) => res.json(router))
-            .catch(next);
-          }
-          else{res.send("email was taken")}
+// login data 
+router.post("/", async (req, res) => {
+  const username = req.body.username
+ 
+  const user = await loginRouter.findOne({ username : username})
+ 
+  if( !user ){
+    res.status(500).json({
+      message: "username not valid"
+    })
+  }
+  else{
+      if(user.password === req.body.password){
+        res.json({
+          data: user,
+          message: `welcome back ${user.username}` 
         })
       }
-      else{res.send("username was taken")}
-    
-    })
-    
+      else{
+        res.status(500).json({
+          message: 'password is incorect'
+      })
+    }
+  }
 });
+
+
+// create a new post
+router.post("/create", async (req, res) => {
+    const username = req.body.username
+    const email = req.body.email
+   
+    const user = await loginRouter.findOne({ username : username})
+    const mail = await loginRouter.findOne({ email: email})
+    
+    if( user ){
+      res.status(500).json({
+        message: "username not valid"
+      })
+    }
+    else{
+      if( mail ){
+        res.status(500).json({
+          message: "email not valid"
+        })
+      }
+      else{
+        loginRouter.create(req.body)
+        .then((login) => res.json(login))
+      }
+}});
 
 router.delete("/:username", (req, res) => {
     const username = req.params.username;
