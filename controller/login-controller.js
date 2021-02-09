@@ -25,7 +25,7 @@ router.post("/", async (req, res, next) => {
     const user = await loginRouter.findOne({ username : username})
     const mail = await loginRouter.findOne({ email: email})
     
-    if( !user && !mail ){
+    if( !user && mail ){
       res.status(500).json({
         message: "username or password not valid"
       })
