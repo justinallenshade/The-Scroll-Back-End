@@ -3,22 +3,37 @@ const router = express.Router();
 const loginRouter = require("../models/login-data");
 
 
-// list a post by body
-router.get("/", (req, res) => {
-    const username = req.params.username;
-    const password = req.params.password;
+// login data 
+router.post("/", async (req, res) => {
+  const username = req.body.username
 
-    loginRouter.find({ username: username })
-    .then((x) => {
-    if(x !== undefined){
-      if(x.password === password){res.json(x)}
-      else{res.send("wrong password")}
+ 
+  const user = await loginRouter.findOne({ username : username})
+ 
+  
+  if( !user ){
+    res.status(500).json({
+      message: "username not valid"
+    })
+  }
+  else{
+      if(user.password === req.body.password){
+        res.json({
+          data: user,
+          message: `welcome back ${user.username}` 
+        })
+      }
+      else{
+        res.status(500).json({
+          message: 'password is incorect'
+      })
     }
-    else{res.send("username does not exist")}})
-  });
+  }
+});
+
 
 // create a new post
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     const username = req.body.username
     const email = req.body.email
    
