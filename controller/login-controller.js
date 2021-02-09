@@ -53,10 +53,10 @@ router.post("/", async (req, res, next) => {
             .then((router) => res.json(router))
             .catch(next);
           }
-          else{res.send(`email was taken ${req}`)}
+          else{console.log(req) , res.send(`email was taken `)}
         })
       }
-      else{console.log(req) , res.send(`username was taken ${req.body.username}`)}})
+      else{console.log(req) , res.send(`username was taken`)}})
     
     });
 
