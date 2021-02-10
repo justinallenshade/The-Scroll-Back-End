@@ -22,9 +22,9 @@ router.post("/", (req, res, next) => {
 });
 
 // update a single post
-router.put("/:id", (req, res) => {
+router.put("/", (req, res) => {
   postRouter
-    .findOneAndUpdate({ _id: req.params.id }, req.body)
+    .findOneAndUpdate({ _id: req.body.id }, req.body)
     .then(postRouter.find({}).then((router) => res.json(router)));
 });
 
