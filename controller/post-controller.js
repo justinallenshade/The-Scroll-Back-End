@@ -9,10 +9,10 @@ router.get("/", (req, res) => {
 
 
 // list a post by id
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  postRouter.findOne({ _id: id }).then((x) => res.json(x));
-});
+// router.get("/:id", (req, res) => {
+//   const id = req.params.id;
+//   postRouter.findOne({ _id: id }).then((x) => res.json(x));
+// });
 
 // create a new post
 router.post("/", (req, res) => {
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
 router.put("/", (req, res) => {
   postRouter
     .findOneAndUpdate({ _id: req.body.id }, req.body)
-    .then(postRouter.find({})
+    .then(postRouter.find({}))
     // .then((router) => res.json(router)));
 });
 
