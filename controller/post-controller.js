@@ -7,30 +7,24 @@ router.get("/", (req, res) => {
   postRouter.find({}).then((post) => res.json(post));
 });
 
-// list a post by id
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  postRouter.findOne({ _id: id }).then((x) => res.json(x));
-});
-
 // create a new post
-router.post("/", (req, res, next) => {
+router.post("/", (req, res) => {
   postRouter
     .create(req.body)
     .then((router) => res.json(router))
-    .catch(next);
 });
 
 // update a single post
-router.put("/:id", (req, res) => {
+router.put("/", (req, res) => {
   postRouter
-    .findOneAndUpdate({ _id: req.params.id }, req.body)
-    .then(postRouter.find({}).then((router) => res.json(router)));
+    .findOneAndUpdate({ _id: req.body.id }, req.body)
+    .then(postRouter.find({}))
+    .then((router) => res.json(router));
 });
 
 // delete a person by id
-router.delete("/:id", (req, res) => {
-  const id = req.params.id;
+router.delete("/", (req, res) => {
+  const id = req.body.id;
   postRouter.findOneAndDelete({ _id: id }).then((x) => res.json(x));
 });
 
