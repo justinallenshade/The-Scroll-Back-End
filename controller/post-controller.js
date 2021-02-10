@@ -7,6 +7,7 @@ router.get("/", (req, res) => {
   postRouter.find({}).then((post) => res.json(post));
 });
 
+
 // list a post by id
 router.get("/:id", (req, res) => {
   const id = req.params.id;
@@ -22,7 +23,7 @@ router.post("/", (req, res, next) => {
 });
 
 // update a single post
-router.put("/", (req, res) => {
+router.put("/:id", (req, res) => {
   postRouter
     .findOneAndUpdate({ _id: req.body.id }, req.body)
     .then(postRouter.find({}).then((router) => res.json(router)));
