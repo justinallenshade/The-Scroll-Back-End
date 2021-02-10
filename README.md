@@ -24,7 +24,6 @@ Use the command, code . to open your files in the text editor of your choice.(pl
 Timeline
 Title of post
 Content of post
-Like/dislike count
 Stretch
 - images
 - Be able to change fonts
@@ -32,7 +31,6 @@ Stretch
 Profile
 Name
 Age
-Username
 stretch(profile flare)
 - Heading image
 - background/text color
