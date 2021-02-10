@@ -15,11 +15,10 @@ router.get("/:id", (req, res) => {
 });
 
 // create a new post
-router.post("/", (req, res, next) => {
+router.post("/", (req, res) => {
   postRouter
     .create(req.body)
     .then((router) => res.json(router))
-    .catch(next);
 });
 
 // update a single post
