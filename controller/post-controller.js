@@ -25,8 +25,8 @@ router.post("/", (req, res) => {
 router.put("/", (req, res) => {
   postRouter
     .findOneAndUpdate({ _id: req.body.id }, req.body)
-    .then(postRouter.find({})
-    .then((router) => res.json(router)));
+    .then(postRouter.find({}))
+    // .then((router) => res.json(router)));
 });
 
 // delete a person by id
